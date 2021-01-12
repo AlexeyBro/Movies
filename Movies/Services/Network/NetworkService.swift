@@ -52,10 +52,10 @@ final class NetworkService: Network {
     }
     
     func fetchMovies() {
-        guard counter < movieStorage?.movies.count ?? 0 else { return }
         for index in counter..<counter + 10 {
+            guard counter < movieStorage?.movies.count ?? 0 else { break }
             downloadGroup.enter()
-            guard let id = movieStorage?.movies[index] else { break }
+            guard let id = movieStorage?.movies[index] else { return }
             downloadMovies(withId: id, group: downloadGroup)
             counter += 1
         }

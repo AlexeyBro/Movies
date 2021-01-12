@@ -14,6 +14,7 @@ protocol ListView: AnyObject {
 final class ListViewController: UIViewController {
     
     let viewModel: ListViewModel
+    private let refreshControl = UIRefreshControl()
     private var isLoading = true
     private var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -51,7 +52,16 @@ final class ListViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .beige
+        collectionView.alwaysBounceVertical = true
+        collectionView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
         collectionView.registerReusableCell(CollectionViewCell.self)
+    }
+    
+    @objc func didPullToRefresh() {
+        viewModel.loadItems()
+        collectionView.reloadData()
+        refreshControl.endRefreshing()
     }
     
     private func setupBarButtons() {

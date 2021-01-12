@@ -52,7 +52,6 @@ final class SearchViewModelImpl: SearchViewModel {
     
     func exit(view: UIViewController) {
         router?.exit(view: view)
-        searchView?.refreshView()
     }
     
 }
