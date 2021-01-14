@@ -99,7 +99,6 @@ final class SearchViewController: UIViewController {
             searchInfoView.widthAnchor.constraint(equalToConstant: 200),
             searchInfoView.heightAnchor.constraint(equalToConstant: 300)
         ])
-        
     }
 }
 

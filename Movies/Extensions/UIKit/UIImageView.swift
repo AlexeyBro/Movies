@@ -24,9 +24,11 @@ extension UIImageView {
     }
     
     func setImage(URLString: String) {
-        if let imageFromCache = Cache.imageCache.object(forKey: URLString as AnyObject) as? UIImage{
-            self.image = imageFromCache
-            return
+        if let imageFromCache = Cache.imageCache.object(forKey: URLString as AnyObject) as? UIImage {
+            DispatchQueue.main.async {
+                self.image = imageFromCache
+                return
+            }
         }
         guard let url = URL(string: URLString) else { return }
         let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 10)
